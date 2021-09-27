@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    
+<head>
+    <title>Tehtävä 4</title>
+    <meta charset='utf-8'>
+    </head>
+    
+<body onload='drawToCanvas(100)'>
+    
+    <form action="." oninput="z.value=a.value;drawToCanvas(a.value)">
+        Säädä nestepinnan korkeus <br><output name="z" for="a">100</output>cm <br>
+        0cm<input type='range' id='a' value='100' min='0' max='200'>200cm
+        
+    </form>
+    
+    <div>
+        <canvas id='myCanvas' width="800" height="400" style="border: 1px solid #000000; padding: 10px;"></canvas>
+    </div>
+    
+    <script>
+        function drawToCanvas(depth) {
+            var canvas = document.getElementById('myCanvas');
+            var ctx = canvas.getContext('2d');
+            
+            depth = depth/100;
+            var r = 1.0;
+            var h = r - depth;
+            var alfa = Math.acos(h/r);
+            var start = (Math.PI/2) - alfa;
+            var end = Math.PI - start;
+            
+            ctx.clearRect(0,0,800,400);
+            ctx.fillStyle = 'white';
+            ctx.beginPath();
+            ctx.arc(400,200,150,0,2*Math.PI);
+            ctx.fill();
+            ctx.stroke();
+            
+            
+            ctx.fillStyle = 'lightblue';
+            ctx.beginPath();
+            ctx.arc(400,200,150,start,end);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+            
+            ctx.fillStyle='#000';
+            ctx.font= '16px Arial';
+            ctx.fillText('Tynnyrin pituus: 100cm', 10, 20);
+            ctx.fillText('Tynnyrin leveys: 200cm', 10, 40);
+            ctx.fillText('Tynnyrin tilavuus: 3141.59 L', 10, 60);
+        }
+        
+        
+        
+    </script>
+    
+    </body>
+    
+</html>
